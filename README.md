@@ -36,3 +36,9 @@
 - logger -> logging application
 - shared -> helper
 - main.go -> starting point the application
+
+## Dependencies
+- install router gorilla/mux -> go get -u github.com/gorilla/mux
+- install logger using zap -> go get -u go.uber.org/zap
+- install mysql driver -> go get -u github.com/go-sql-driver/mysql
+- install sqlx -> go get -u github.com/jmoiron/sqlx
