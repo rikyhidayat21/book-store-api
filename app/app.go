@@ -1,13 +1,16 @@
 package app
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
+	"github.com/joho/godotenv"
 	"github.com/rikyhidayat21/book-store-api/internal/core/services/booksvc"
 	"github.com/rikyhidayat21/book-store-api/internal/handlers/bookhdl"
 	"github.com/rikyhidayat21/book-store-api/internal/repositories/booksrepo"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -38,7 +41,8 @@ func Start() {
 
 func getDbClient() *sqlx.DB {
 	// define the connection
-	client, err := sqlx.Open("mysql", "root:root1234@tcp(localhost:3306)/book-store")
+	//client, err := sqlx.Open("mysql", "root:root1234@tcp(localhost:3306)/book-store")
+	client, err := sqlx.Open("mysql", dsn())
 	if err != nil {
 		panic(err)
 	}
@@ -47,4 +51,20 @@ func getDbClient() *sqlx.DB {
 	client.SetMaxOpenConns(10)
 	client.SetMaxIdleConns(10)
 	return client
+}
+
+func dsn() string {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error when loading .env file")
+	}
+
+	dbUser := os.Getenv("DATABASE_USER")
+	dbPass := os.Getenv("DATABASE_PASSWORD")
+	dbHost := os.Getenv("DATABASE_HOST")
+	dbPort := os.Getenv("DATABASE_PORT")
+	dbName := os.Getenv("DATABASE_NAME")
+
+	dsnSource := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPass, dbHost, dbPort, dbName)
+	return dsnSource
 }
