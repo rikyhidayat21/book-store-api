@@ -1,6 +1,7 @@
 package bookhdl
 
 import (
+	"github.com/gorilla/mux"
 	"github.com/rikyhidayat21/book-store-api/internal/core/ports"
 	"github.com/rikyhidayat21/book-store-api/shared"
 	"net/http"
@@ -24,5 +25,17 @@ func (bh *HTTPBookHandler) GetAllBooks(w http.ResponseWriter, r *http.Request) {
 		shared.WriteResponse(w, err.Code, err.AsMessage())
 	} else {
 		shared.WriteResponse(w, http.StatusOK, books)
+	}
+}
+
+func (bh *HTTPBookHandler) GetBook(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	book, err := bh.bookService.Get(id)
+	if err != nil {
+		shared.WriteResponse(w, err.Code, err.AsMessage())
+	} else {
+		shared.WriteResponse(w, http.StatusOK, book)
 	}
 }

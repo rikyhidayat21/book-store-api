@@ -7,4 +7,5 @@ import (
 
 type BookRepository interface {
 	FindAll() ([]domain.Book, *exception.AppError)
+	ById(string) (*domain.Book, *exception.AppError) // why using pointer? because we want to send `nil` in case there's no book available
 }

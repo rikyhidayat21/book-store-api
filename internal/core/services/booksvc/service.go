@@ -19,3 +19,12 @@ func NewBookService(repository ports.BookRepository) *service {
 func (s *service) GetAll() ([]domain.Book, *exception.AppError) {
 	return s.repo.FindAll()
 }
+
+func (s *service) Get(id string) (*domain.Book, *exception.AppError) {
+	b, err := s.repo.ById(id)
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
+}

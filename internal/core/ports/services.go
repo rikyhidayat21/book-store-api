@@ -7,4 +7,5 @@ import (
 
 type BookService interface {
 	GetAll() ([]domain.Book, *exception.AppError)
+	Get(string) (*domain.Book, *exception.AppError)
 }
