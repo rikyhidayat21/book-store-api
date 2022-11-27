@@ -42,3 +42,6 @@
 - install logger using zap -> go get -u go.uber.org/zap
 - install mysql driver -> go get -u github.com/go-sql-driver/mysql
 - install sqlx -> go get -u github.com/jmoiron/sqlx
+
+## How to develop
+Always start from the core domain.

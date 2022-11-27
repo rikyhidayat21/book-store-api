@@ -1,0 +1,30 @@
+package exception
+
+import "net/http"
+
+type AppError struct {
+	Code    int
+	Message string
+}
+
+func (e AppError) AsMessage() *AppError {
+	return &AppError{
+		Message: e.Message,
+	}
+}
+
+// NewNotFoundError
+func NewNotFoundError(message string) *AppError {
+	return &AppError{
+		Message: message,
+		Code:    http.StatusNotFound,
+	}
+}
+
+// NewUnexpectedError
+func NewUnexpectedError(message string) *AppError {
+	return &AppError{
+		Message: message,
+		Code:    http.StatusInternalServerError,
+	}
+}
