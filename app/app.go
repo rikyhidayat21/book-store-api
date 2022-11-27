@@ -41,7 +41,6 @@ func Start() {
 
 func getDbClient() *sqlx.DB {
 	// define the connection
-	//client, err := sqlx.Open("mysql", "root:root1234@tcp(localhost:3306)/book-store")
 	client, err := sqlx.Open("mysql", dsn())
 	if err != nil {
 		panic(err)
