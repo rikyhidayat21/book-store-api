@@ -1,5 +1,7 @@
 package domain
 
+import "github.com/rikyhidayat21/book-store-api/dto/bookDto"
+
 type Book struct {
 	Id            string  `db:"id" json:"id"`
 	Title         string  `db:"title" json:"title"`
@@ -8,4 +10,16 @@ type Book struct {
 	Price         float64 `db:"price" json:"price"`
 	OutOfPrint    bool    `db:"out_of_print" json:"out_of_print"`
 	Views         int64   `db:"views" json:"views"`
+}
+
+func (b Book) ToDto() bookDto.BookResponse {
+	return bookDto.BookResponse{
+		Id:            b.Id,
+		Title:         b.Title,
+		YearPublished: b.YearPublished,
+		Isbn:          b.Isbn,
+		Price:         b.Price,
+		OutOfPrint:    b.OutOfPrint,
+		Views:         b.Views,
+	}
 }
