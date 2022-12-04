@@ -10,4 +10,5 @@ type BookService interface {
 	GetAll() ([]bookDto.BookResponse, *exception.AppError)
 	Get(string) (*bookDto.BookResponse, *exception.AppError)
 	Create(request bookDto.NewBookRequest) (*bookDto.NewBookResponse, *exception.AppError)
+	Delete(string) *exception.AppError
 }

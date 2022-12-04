@@ -80,3 +80,16 @@ func (d BookRepository) Save(b domain.Book) (*domain.Book, *exception.AppError) 
 	b.Id = id
 	return &b, nil
 }
+
+func (d BookRepository) Destroy(id string) *exception.AppError {
+	// define query
+	destroySql := "delete from books where id = ?"
+
+	_, err := d.client.Exec(destroySql, id)
+	if err != nil {
+		logger.Error("Error while destroying book " + err.Error())
+		return exception.NewUnexpectedError("Unexpected error from database")
+	}
+
+	return nil
+}

@@ -36,6 +36,7 @@ func Start() {
 	apiV1.HandleFunc("/books", bookHandler.GetAllBooks).Methods(http.MethodGet)
 	apiV1.HandleFunc("/books/{id:[0-9]+}", bookHandler.GetBook).Methods(http.MethodGet)
 	apiV1.HandleFunc("/books", bookHandler.CreateBook).Methods(http.MethodPost)
+	apiV1.HandleFunc("/books/{id:[0-9]+}", bookHandler.DeleteBook).Methods(http.MethodDelete)
 
 	log.Fatalln(http.ListenAndServe("localhost:8000", router))
 }

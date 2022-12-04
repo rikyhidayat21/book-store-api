@@ -45,3 +45,7 @@
 
 ## How to develop
 Always start from the core domain.
+
+## Sources
+- [src](https://medium.com/@matiasvarela/hexagonal-architecture-in-go-cfd4e436faa3)
+- 

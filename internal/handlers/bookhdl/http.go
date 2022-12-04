@@ -57,3 +57,15 @@ func (bh *HTTPBookHandler) CreateBook(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
+
+func (bh *HTTPBookHandler) DeleteBook(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	err := bh.bookService.Delete(id)
+
+	if err != nil {
+		shared.WriteResponse(w, err.Code, err.AsMessage())
+	} else {
+		shared.WriteResponse(w, http.StatusOK, "Success delete book")
+	}
+}

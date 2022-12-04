@@ -10,4 +10,5 @@ type BookRepository interface {
 	FindAll() ([]domain.Book, *exception.AppError)
 	ById(string) (*domain.Book, *exception.AppError) // why using pointer? because we want to send `nil` in case there's no book available
 	Save(book domain.Book) (*domain.Book, *exception.AppError)
+	Destroy(string) *exception.AppError
 }

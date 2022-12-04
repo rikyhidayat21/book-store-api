@@ -63,3 +63,17 @@ func (s *service) Create(request bookDto.NewBookRequest) (*bookDto.NewBookRespon
 	responseDto := newBook.ToNewBookResponseDto()
 	return &responseDto, nil
 }
+
+func (s *service) Delete(id string) *exception.AppError {
+	_, err := s.repo.ById(id)
+	if err != nil {
+		return err
+	}
+
+	err = s.repo.Destroy(id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
