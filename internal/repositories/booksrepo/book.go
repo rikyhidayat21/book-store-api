@@ -3,7 +3,6 @@ package booksrepo
 import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
-
 	"github.com/jmoiron/sqlx"
 	"github.com/rikyhidayat21/book-store-api/exception"
 	"github.com/rikyhidayat21/book-store-api/internal/core/domain"
@@ -58,5 +57,26 @@ func (d BookRepository) ById(id string) (*domain.Book, *exception.AppError) {
 		}
 	}
 
+	return &b, nil
+}
+
+func (d BookRepository) Save(b domain.Book) (*domain.Book, *exception.AppError) {
+	sqlInsert := "INSERT INTO books (title, year_published, isbn, price, out_of_print, views) VALUES (?, ?, ?, ?, ?, ?)"
+
+	// execute the query
+	result, err := d.client.Exec(sqlInsert, b.Title, b.YearPublished, b.Isbn, b.Price, b.OutOfPrint, b.Views)
+	if err != nil {
+		logger.Error("Error while creating new book: " + err.Error())
+		return nil, exception.NewUnexpectedError("Unexpected error from database")
+	}
+
+	// return the last inserted id
+	id, err := result.LastInsertId()
+	if err != nil {
+		logger.Error("Error while getting last inserted id for new book: " + err.Error())
+		return nil, exception.NewUnexpectedError("Unexpected error from database")
+	}
+
+	b.Id = id
 	return &b, nil
 }

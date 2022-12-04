@@ -3,6 +3,7 @@ package booksvc
 import (
 	"github.com/rikyhidayat21/book-store-api/dto/bookDto"
 	"github.com/rikyhidayat21/book-store-api/exception"
+	"github.com/rikyhidayat21/book-store-api/internal/core/domain"
 	"github.com/rikyhidayat21/book-store-api/internal/core/ports"
 )
 
@@ -37,4 +38,28 @@ func (s *service) Get(id string) (*bookDto.BookResponse, *exception.AppError) {
 	response := b.ToDto()
 
 	return &response, nil
+}
+
+func (s *service) Create(request bookDto.NewBookRequest) (*bookDto.NewBookResponse, *exception.AppError) {
+	// validate
+
+	// transform the request to be a DTO
+	b := domain.Book{
+		Title:         request.Title,
+		YearPublished: request.YearPublished,
+		Isbn:          request.Isbn,
+		Price:         request.Price,
+		OutOfPrint:    request.OutOfPrint,
+		Views:         request.Views,
+	}
+
+	// pass variable
+	newBook, err := s.repo.Save(b)
+	if err != nil {
+		return nil, err
+	}
+
+	// transform to new account response
+	responseDto := newBook.ToNewBookResponseDto()
+	return &responseDto, nil
 }
