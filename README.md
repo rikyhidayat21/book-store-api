@@ -1,26 +1,43 @@
 # book-store-api
 
 ## Application Structure
-- app
-- exception
-- internal
-    - core
-      - domain
-        - book.go
-      - ports
-        - ports.go
-      - services
-        - bookSvc
-          - serviceImpl.go
-    - handlers
-      - bookhdl
-        - http.go
-    - repositories
-      - booksrepo
-        - repoImpl
-- logger
-- shared
-- main.go
+
+```
+.
+├── README.md
+├── app
+│   └── app.go
+├── dto
+│   └── bookDto
+│       └── BookResponse.go
+├── exception
+│   └── errors.go
+├── go.mod
+├── go.sum
+├── internal
+│   ├── core
+│   │   ├── domain
+│   │   │   └── book.go
+│   │   ├── ports
+│   │   │   ├── repositories.go
+│   │   │   └── services.go
+│   │   └── services
+│   │       └── booksvc
+│   │           └── service.go
+│   ├── handlers
+│   │   └── bookhdl
+│   │       └── http.go
+│   └── repositories
+│       └── booksrepo
+│           └── book.go
+├── logger
+│   └── logger.go
+├── main.go
+└── shared
+    └── writeResponse.go
+
+16 directories, 15 files
+```
 
 ## Definition of the Application structure
 - app -> serve and wiring the application
